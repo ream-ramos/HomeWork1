@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Homework Tracker</title>
+
+<style>
+
+body{
+    font-family: Arial;
+    display: flex;
+    justify-content: center;
+}
+
+.phone{
+    width:230px;
+    background:#857b7b;
+    border-radius:35px;
+    padding:15px;
+}
+
+.header{
+    text-align:center;
+    font-weight:bold;
+    font-size:20px;
+    border-bottom:2px solid black;
+    padding-bottom:10px;
+}
+
+.btn{
+    margin:15px 0;
+    cursor:pointer;
+    font-size:18px;
+}
+
+.homework-item{
+    background:rgb(159, 171, 177);
+    padding:5px;
+    margin-top:5px;
+    border-radius:5px;
+}
+
+input{
+    width:100%;
+    padding:5px;
+    margin-top:5px;
+}
+
+.task{
+    margin-top:15px;
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="phone">
+
+<div id="homeScreen">
+
+<div class="header">HOMEWORK TRACKING</div>
+
+<div class="btn" onclick="openAdd()">+ Add Homework</div>
+
+<div class="btn" onclick="openToday()">Today's Homework</div>
+
+<div id="list"></div>
+
+</div>
+
+
+<div id="addScreen" style="display:none">
+
+<div class="header">+ Add Homework</div>
+
+<label>Subject:</label>
+<input id="subject">
+
+<br><br>
+
+<label>Homework:</label>
+<input id="homework">
+
+<br><br>
+
+<div class="btn" onclick="saveHomework()">Save Homework</div>
+
+<div class="btn" onclick="goHome()">← Back</div>
+
+</div>
+
+
+<div id="todayScreen" style="display:none">
+
+<div class="header">TODAY'S HOMEWORK</div>
+
+<div id="todayList"></div>
+
+<div class="btn" onclick="goHome()">← Back</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+let homeworkData = [];
+
+function openAdd(){
+    hideAll();
+    document.getElementById("addScreen").style.display="block";
+}
+
+function openToday(){
+    hideAll();
+    document.getElementById("todayScreen").style.display="block";
+    renderToday();
+}
+
+function goHome(){
+    hideAll();
+    document.getElementById("homeScreen").style.display="block";
+}
+
+function hideAll(){
+    document.getElementById("homeScreen").style.display="none";
+    document.getElementById("addScreen").style.display="none";
+    document.getElementById("todayScreen").style.display="none";
+}
+
+function saveHomework(){
+
+    let subject = document.getElementById("subject").value;
+    let homework = document.getElementById("homework").value;
+
+    if(subject && homework){
+
+        homeworkData.push({subject, homework});
+
+        let item = document.createElement("div");
+        item.className="homework-item";
+        item.innerHTML = "<b>"+subject+"</b> - "+homework;
+
+        document.getElementById("list").appendChild(item);
+
+        document.getElementById("subject").value="";
+        document.getElementById("homework").value="";
+
+        goHome();
+    }
+}
+
+function renderToday(){
+
+    let list = document.getElementById("todayList");
+    list.innerHTML="";
+
+    homeworkData.forEach(hw => {
+
+        let div = document.createElement("div");
+        div.className="task";
+
+        div.innerHTML = `
+        <input type="checkbox">
+        ${hw.subject} - ${hw.homework}
+        `;
+
+        list.appendChild(div);
+
+    });
+
+}
+
+</script>
+
+</body>
+</html>

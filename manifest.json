@@ -1,0 +1,21 @@
+{
+  "name": "HomeWork Tracker",
+  "short_name": "HomeWork",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#8d448d",
+  "theme_color": "#8d448d",
+  "description": "Homework tracking app for students to manage their assignments and deadlines.",
+  "icons": [
+    {
+      "src": "ht.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "ht1.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
