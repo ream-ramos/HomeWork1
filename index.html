@@ -1,14 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Homework Tracker</title>
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-       <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#000000">
-
 </head>
+
 <body>
 
 <div class="phone">
@@ -62,7 +57,11 @@
 
 <script>
 
-let homeworkData = [];
+let homeworkData = JSON.parse(localStorage.getItem("homeworkData")) || [];
+
+function saveToStorage(){
+    localStorage.setItem("homeworkData", JSON.stringify(homeworkData));
+}
 
 function openAdd(){
     hideAll();
@@ -94,18 +93,27 @@ function saveHomework(){
     if(subject && homework){
 
         homeworkData.push({subject, homework});
+        saveToStorage();
 
-        let item = document.createElement("div");
-        item.className="homework-item";
-        item.innerHTML = "<b>"+subject+"</b> - "+homework;
-
-        document.getElementById("list").appendChild(item);
+        renderHome();
 
         document.getElementById("subject").value="";
         document.getElementById("homework").value="";
 
         goHome();
     }
+}
+
+function renderHome(){
+    let list = document.getElementById("list");
+    list.innerHTML = "";
+
+    homeworkData.forEach(hw => {
+        let item = document.createElement("div");
+        item.className="homework-item";
+        item.innerHTML = "<b>"+hw.subject+"</b> - "+hw.homework;
+        list.appendChild(item);
+    });
 }
 
 function renderToday(){
@@ -128,7 +136,14 @@ function renderToday(){
     });
 
 }
-     <style>
+
+renderHome();
+
+</script>
+
+
+<!-- ✅ CSS MOVED HERE -->
+<style>
 
 body{
     font-family: Arial;
@@ -175,8 +190,6 @@ input{
 }
 
 </style>
-
-</script>
 
 </body>
 </html>
