@@ -1,6 +1,6 @@
 {
   "name": "HomeWork App",
-  "short_name": "HW",
+  "short_name": "HomeWork",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
