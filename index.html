@@ -138,6 +138,30 @@ function renderToday(){
 }
 
 renderHome();
+    self.clients.claim();
+        if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then(reg => console.log('Service Worker registered!', reg.scope))
+      .catch(err => console.log('Registration failed:', err));
+  });
+}
+
+        self.addEventListener("install", event => {
+    self.skipWaiting();
+});
+
+self.addEventListener("activate", event => {
+    event.waitUntil(self.clients.claim());
+});
+
+self.addEventListener("fetch", event => {
+    event.respondWith(
+        caches.match(event.request).then(response => {
+            return response || fetch(event.request);
+        })
+    );
+});
 
 </script>
 
