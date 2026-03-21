@@ -1,11 +1,25 @@
-self.addEventListener("install", function(e) {
-    e.waitUntil(
-        caches.open("todo-cache").then(function(cache) {
+self.addEventListener("install", event => {
+    self.skipWaiting();
+    event.waitUntil(
+        caches.open("todo-cache-v2").then(cache => {
             return cache.addAll([
+                "/",
                 "/index.html",
-                "/ht.png",
-                "/ht1.png"
+                "/ht192.png",
+                "/ht1512.png"
             ]);
+        })
+    );
+});
+
+self.addEventListener("activate", event => {
+    event.waitUntil(self.clients.claim());
+});
+
+self.addEventListener("fetch", event => {
+    event.respondWith(
+        caches.match(event.request).then(response => {
+            return response || fetch(event.request);
         })
     );
 });
