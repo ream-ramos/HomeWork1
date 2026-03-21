@@ -1,6 +1,6 @@
 {
-  "name": "BP APP",
-  "short_name": "BP",
+  "name": "HomeWork App",
+  "short_name": "HW",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
