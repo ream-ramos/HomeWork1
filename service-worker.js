@@ -5,8 +5,8 @@ self.addEventListener("install", event => {
             return cache.addAll([
                 "/",
                 "/index.html",
-                "/ht192.png",
-                "/ht1512.png"
+                "/ht.png",
+                "/ht1.png"
             ]);
         })
     );
